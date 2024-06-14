@@ -22,7 +22,7 @@ export default function Home() {
   }, [])
 
   return (
-    <div className={`${params.backgroundColor == "dark" && "bg-notionBlack"} h-screen w-full`}>
+    <div className={`${params.backgroundColor == "dark" && "bg-notionBlack"} h-screen`}>
       <HolidayList />
     </div>
   );

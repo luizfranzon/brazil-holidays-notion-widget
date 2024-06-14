@@ -4,6 +4,7 @@ import { ChevronLeft, ChevronRight } from "lucide-react";
 
 import data from "@/data.json";
 import { useState } from "react";
+import { format } from "date-fns";
 
 interface DataType {
   title: string;
@@ -50,21 +51,33 @@ export function HolidayList() {
     }
   }
 
-  console.log(filterHolidaysByMonth(data, 0))
-
   return (
-    <div className="w-full h-screen">
-      <header className="flex items-center gap-2">
-        <ChevronLeft onClick={() => handleChangeMonth("prev")} className="cursor-pointer" />
+    <div className="h-screen rounded-lg bg-white">
+      <header className="flex items-center gap-2 bg-[#232136] text-white">
+        <ChevronLeft
+          size={50}
+          onClick={() => handleChangeMonth("prev")}
+          className="cursor-pointer"
+        />
 
-        <span>{getMonthName(selectedMonth)}</span>
-        <ChevronRight onClick={() => handleChangeMonth("next")} className="cursor-pointer" />
+        <span
+          className="font-bold text-3xl"
+          onClick={() => setSelectedMonth(new Date().getMonth())}
+        >
+          {getMonthName(selectedMonth)}
+        </span>
+
+        <ChevronRight
+          size={50}
+          onClick={() => handleChangeMonth("next")}
+          className="cursor-pointer"
+        />
       </header>
       <main>
         <ul>
           {filterHolidaysByMonth(data, selectedMonth).map((holiday: DataType, index: number) => (
             <li key={index}>
-              <h1>{holiday.title} - {new Date(holiday.date).toISOString()}</h1>
+              <h1>{holiday.title} - {format(new Date(holiday.date), 'dd/MM')}</h1>
             </li>
           ))}
         </ul>
